@@ -150,6 +150,6 @@ if __name__ == "__main__":
 
 print("Instructiune dupa if")
 
-print(bmw.culoare)
-bmw.culoare = "roz"
-print(bmw.culoare)
+# print(bmw.culoare)
+# bmw.culoare = "roz"
+# print(bmw.culoare)
