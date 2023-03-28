@@ -1,11 +1,9 @@
 import time
-from datetime import datetime
+
 import unittest
-from unittest import TestCase
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -13,13 +11,23 @@ from selenium.webdriver.support.wait import WebDriverWait
 class Login(unittest.TestCase):
     driver = None
     LINK = "https://the-internet.herokuapp.com/"
-    LOGIN_ERROR = (By.XPATH, "//*[@class='flash error']")
+    LOGIN_ERROR = (By.CSS_SELECTOR, ".flash.error")
+    LOGIN_SUCCESS = (By.CLASS_NAME, 'flash.success')
     LOGIN_BUTTON = (By.CSS_SELECTOR, 'button.radius[type="submit"]')
     CLOSE_BUTTON = (By.XPATH, "//div[@data-alert]/descendant::a[@class='close']")
 
     def wait_for_element_to_be_present(self, element_locator, seconds_to_wait):
         wait = WebDriverWait(self.driver, seconds_to_wait)
         return wait.until(EC.presence_of_element_located(element_locator))
+
+    def is_element_present(self, element_locator):
+        return len(self.driver.find_elements(*element_locator)) > 0
+
+    def login(self, user, password):
+        self.driver.find_element(By.ID, 'username').send_keys(user)
+        self.driver.find_element(By.ID, 'password').send_keys(password)
+        self.driver.implicitly_wait(2)
+        self.driver.find_element(*self.LOGIN_BUTTON).click()
 
     def setUp(self):
         print(f"Se executa ce este in setUp() pentru {self._testMethodName}")
@@ -34,17 +42,16 @@ class Login(unittest.TestCase):
         self.driver.quit()
 
 # Verifică dacă noul url e corect
-    @unittest.skip
+    #@unittest.skip
     def test_url(self):
         print(f"A inceput testul {self._testMethodName}")
 
         expected_url = "https://the-internet.herokuapp.com/login"
         actual_url = self.driver.current_url
-
         self.assertEqual(expected_url, actual_url, "Invalid URL")
 
 # Verifică dacă page title e corect
-    @unittest.skip
+    #@unittest.skip
     def test_title(self):
         print(f"A inceput testul {self._testMethodName}")
         expected_title = 'The Internet'
@@ -53,7 +60,7 @@ class Login(unittest.TestCase):
         self.assertEqual(expected_title, actual_title, f"Invalid title, expected {expected_title}, found {actual_title}")
 
 # Verifică textul de pe elementul xpath=//h2 e corect
-    @unittest.skip
+    #@unittest.skip
     def test_h2_text(self):
         print(f'A inceput testul {self._testMethodName}')
         expected_text = 'Login Page'
@@ -61,7 +68,7 @@ class Login(unittest.TestCase):
         self.assertEqual(expected_text, actual_text, f'Invalid text, expected {expected_text}, found {actual_text}')
 
 # Verifică dacă butonul de login este displayed
-    @unittest.skip
+    #@unittest.skip
     def test_buton_login(self):
         print(f'A inceput testul {self._testMethodName}')
         login_button = self.driver.find_element(By.CSS_SELECTOR, 'button.radius[type="submit"]')
@@ -69,7 +76,7 @@ class Login(unittest.TestCase):
         self.assertTrue(login_button.is_displayed(), 'Butonul nu este afisat')
 
 # Verifică dacă atributul href al linkului ‘Elemental Selenium’ e corect
-    @unittest.skip
+    #@unittest.skip
     def test_atribut_href(self):
         print(f'A inceput testul {self._testMethodName}')
         expected_atribute = 'http://elementalselenium.com/'
@@ -80,14 +87,13 @@ class Login(unittest.TestCase):
 # - Lasă goale user și pass
 # - Click login
 # - Verifică dacă eroarea e displayed
-    @unittest.skip
+    #@unittest.skip
     def test_error_login1(self):
         print(f'A inceput testul {self._testMethodName}')
         expected = f'Your username is invalid!\n×'  # f'Your username is invalid!\n×'
 
         self.driver.find_element(By.CSS_SELECTOR, 'button.radius[type="submit"]').click()
         self.driver.implicitly_wait(1)
-        #WebDriverWait(self.driver, 1)
         actual = self.driver.find_element(By.CLASS_NAME, "flash.error") #(By.CSS_SELECTOR, 'div#flash.flash.error')
 
         self.assertTrue(actual.is_displayed(), 'Mesajul nu s-a afisat.')
@@ -100,7 +106,7 @@ class Login(unittest.TestCase):
 # expected = 'Your username is invalid!'
 # self.assertTrue(expected in actual, 'Error message text is
 # incorrect')
-    @unittest.skip
+    #@unittest.skip
     def test_error_login2(self):
         print(f'A inceput testul {self._testMethodName}')
         expected = 'Your username is invalid!'
@@ -119,7 +125,7 @@ class Login(unittest.TestCase):
 # - Click login
 # - Apasă x la eroare
 # - Verifică dacă eroarea a dispărut
-    @unittest.skip
+    #@unittest.skip
     def test_check_error_login(self):
         print(f'A inceput testul {self._testMethodName}')
 
@@ -140,9 +146,16 @@ class Login(unittest.TestCase):
 # Password)
 # - Aici e ok să avem 2 asserturi
     #@unittest.skip
+    def test_check_label(self):
+        print(f'Am inceput testul {self._testMethodName}')
+        expected_labels = ['Username', 'Password']
 
+        labels = self.driver.find_elements(By.TAG_NAME, 'label')
+        for label in labels:
+            self.assertIn(label.text, expected_labels, 'Lista incorecta')
 
-
+        # self.assertIn(labels[0].text, expected_labels, 'Lista incorecta')
+        # self.assertIn(labels[1].text, expected_labels, 'Lista incorecta')
 
 # Test 10
 # - Completează cu user și pass valide
@@ -151,7 +164,7 @@ class Login(unittest.TestCase):
 # - Folosește un explicit wait pentru elementul cu clasa ’flash succes’
 # - Verifică dacă elementul cu clasa=’flash succes’ este displayed
 # - Verifică dacă mesajul de pe acest element CONȚINE textul ‘secure area!’
-    @unittest.skip
+    #@unittest.skip
     def test_secure(self):
         print(f'Am inceput testul {self._testMethodName}')
         text = "secure area!"
@@ -176,7 +189,7 @@ class Login(unittest.TestCase):
 # - Click login
 # - Click logout
 # - Verifică dacă ai ajuns pe https://the-internet.herokuapp.com/login
-    @unittest.skip
+    #@unittest.skip
     def test_login(self):
         print(f'Am inceput testul {self._testMethodName}')
         expected_url = "https://the-internet.herokuapp.com/login"
@@ -203,3 +216,26 @@ class Login(unittest.TestCase):
 # - La final testul trebuie să îmi printeze fie
 # ‘Nu am reușit să găsesc parola’
 # ‘Parola secretă este [parola]’
+    #@unittest.skip
+    def test_password_hacking(self):
+        print(f'Am inceput testul {self._testMethodName}')
+
+        lista_parole = self.driver.find_element(By.CSS_SELECTOR, 'h4.subheader').text.split(" ")
+
+        for parola in lista_parole:
+            self.login('tomsmith', parola)
+            if len(self.driver.find_elements(*self.LOGIN_ERROR))>0:
+                print(f'Parola nu este buna.')
+            else:
+                print(f'Parola secreta este {parola}.')
+                break
+
+        actual_url = self.driver.current_url
+        self.assertIn('/secure', actual_url, "Textul '/secure' nu se afla in url")
+
+
+
+
+
+
+
