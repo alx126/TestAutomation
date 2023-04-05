@@ -58,12 +58,11 @@ for zi in zile_luna_viitoare:
 def get_calendar_month_year():
     return driver.find_element(By.CLASS_NAME, "datepicker-switch").text
 
-
 next_button = driver.find_element(By.CLASS_NAME, "next")
 
 while "2024" not in get_calendar_month_year():
     next_button.click()
-    time.sleep(1)
+time.sleep(1)
 
 # Simulam apasarea butonului ESCAPE ca sa iesim din calendar
 time.sleep(1)
