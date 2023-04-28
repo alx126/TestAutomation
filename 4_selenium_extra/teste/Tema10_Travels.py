@@ -24,12 +24,14 @@ class Travels(unittest.TestCase):
     FLIGHT_RETURN_FIELD = (By.CSS_SELECTOR, 'input#return[name="returning"]')
     BUTTON_FLIGHT_SEARCH = (By.CSS_SELECTOR, 'button#flights-search')
 
+    # setup Firefox
     # def setUp(self):
     #     self.service = Service(GeckoDriverManager().install())
     #     self.driver = webdriver.Firefox(service=self.service)
     #     self.driver.maximize_window()
     #     self.driver.implicitly_wait(2)
 
+        # setup Chrome
     def setUp(self):
         self.service = Service(ChromeDriverManager().install())
         self.driver = webdriver.Chrome(service=self.service)
@@ -45,7 +47,7 @@ class Travels(unittest.TestCase):
         self.driver.find_element(*locator).click()
 
     def click_Account(self):
-        account_button = self.driver.find_element(self.BUTTON_ACCOUNT)
+        account_button = self.driver.find_element(*self.BUTTON_ACCOUNT)
         ActionChains(self.driver).move_to_element(account_button).click().perform()
         self.driver.implicitly_wait(2)
 
@@ -55,7 +57,6 @@ class Travels(unittest.TestCase):
         for calendar in lista_calendare:
             if calendar.is_displayed():
                 return calendar.text
-        # return self.driver.find_element(locator).text
 
     def open_date_picker(self, locator):
         # if len(self.driver.find_elements(By.CLASS_NAME, "day")) == 0:
@@ -90,15 +91,8 @@ class Travels(unittest.TestCase):
             if day.is_displayed():
                 day.click()
 
-    # (By.XPATH,"//div[@class='datepicker dropdown-menu']/descendant::th[@class='switch']")
-    # //td[@class='day' and contains(text(), 8)]
-
     def test_3_sign_in(self):
-        # self.click_Account()
-        account_button = self.driver.find_element(By.CSS_SELECTOR, 'button#ACCOUNT')
-        ActionChains(self.driver).move_to_element(account_button).click().perform()
-        # account_button = self.driver.find_element(self.BUTTON_ACCOUNT)
-        # ActionChains(self.driver).move_to_element(account_button).click().perform()
+        self.click_Account()
         time.sleep(1)
 
         customer_login = self.driver.find_element(
@@ -121,10 +115,8 @@ class Travels(unittest.TestCase):
 
     # @unittest.skip
     def test_1_sign_up(self):
-
-        account_button = self.driver.find_element(By.CSS_SELECTOR, 'button#ACCOUNT')
-        ActionChains(self.driver).move_to_element(account_button).click().perform()
-        time.sleep(1)
+        self.click_Account()
+        #time.sleep(1)
 
         customer_signup = self.driver.find_element(
             By.XPATH, "//div[@class='dropdown']/descendant::a[contains(text(), 'Customer Signup')]")
@@ -132,25 +124,21 @@ class Travels(unittest.TestCase):
         self.driver.implicitly_wait(5)
         time.sleep(1)
 
-        # ActionChains(self.driver).move_to_element(self.driver.find_element(
-        #     By.CSS_SELECTOR, 'input[placeholder="First Name"]')).click().perform()
-        # time.sleep(3)
-
         self.driver.find_element(By.CSS_SELECTOR, 'input[placeholder="First Name"]').send_keys('Ale')
-        time.sleep(2)
+        time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, 'input[placeholder="First Name"]').send_keys('x')
         time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Last Name"]').send_keys('Pop')
         time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Last Name"]').send_keys('escu')
-        time.sleep(2)
+        time.sleep(1)
 
         self.driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Phone"]').send_keys('0211234123')
-        time.sleep(3)
+        time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Email"]').send_keys('alex.popescu@gmail.com')
         time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Password"]').send_keys('P@ssw0rd')
-        time.sleep(2)
+        time.sleep(1)
 
         # find the reCAPTCHA element and click on it
         WebDriverWait(self.driver, 10).until(EC.frame_to_be_available_and_switch_to_it(
@@ -169,12 +157,8 @@ class Travels(unittest.TestCase):
 
     # @unittest.skip
     def test_2_sign_up(self):
-        # self.click_Account()
-        account_button = self.driver.find_element(By.CSS_SELECTOR, 'button#ACCOUNT')
-        ActionChains(self.driver).move_to_element(account_button).click().perform()
-        # account_button = self.driver.find_element(self.BUTTON_ACCOUNT)
-        # ActionChains(self.driver).move_to_element(account_button).click().perform()
-        time.sleep(1)
+        self.click_Account()
+        #time.sleep(1)
 
         customer_login = self.driver.find_element(
             By.XPATH, "//div[@class='dropdown']/descendant::a[contains(text(), 'Customer Login')]")
@@ -250,12 +234,12 @@ class Travels(unittest.TestCase):
             self.click_date_picker_prev()
         time.sleep(1)
 
+        ### !!! Functioneaza doar uneori!!!
         # self.select_date("2023", "July", "12", self.FLIGHT_DEPARTURE_FIELD)
         # time.sleep(1)
 
         self.open_date_picker(self.FLIGHT_DEPARTURE_FIELD)
         self.insert_date(self.FLIGHT_DEPARTURE_FIELD, '08-07-2023')
-        # self.driver.find_element(By.CSS_SELECTOR, 'input#departure[class*="depart form-control"]').send_keys('08-05-2023')
         time.sleep(1)
 
         self.open_date_picker(self.FLIGHT_RETURN_FIELD)
