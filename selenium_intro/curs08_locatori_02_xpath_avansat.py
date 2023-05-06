@@ -134,3 +134,7 @@ driver.find_element(By.XPATH, "//option[@value='2']/following-sibling::option")
 driver.find_element(By.XPATH, "//option[@value='2']/preceding-sibling::option")
 
 driver.quit()
+
+//*[@id="confirm1681151591248_content"]/div/div[2]/a[1]
+
+#confirm1681151591248_content > div > div:nth-child(2) > a:nth-child(1)
