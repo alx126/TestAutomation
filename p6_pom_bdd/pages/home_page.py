@@ -1,4 +1,4 @@
-from pom_bdd.pages.base_page import BasePage
+from p6_pom_bdd.pages.base_page import BasePage
 
 
 class HomePage(BasePage):

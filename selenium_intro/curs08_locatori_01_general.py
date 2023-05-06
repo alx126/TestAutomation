@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.common import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 
-# ######################### Intro HTML, DOM, CSS #########################
+# ######################### p1_python intro HTML, DOM, CSS #########################
 
 """
 Pagina HTML = orice pagina web scrisa in limbajul HTML

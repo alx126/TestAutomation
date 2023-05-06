@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-from pom_bdd.pages.base_page import BasePage
+from p6_pom_bdd.pages.base_page import BasePage
 
 
 class SearchResultsPage(BasePage):

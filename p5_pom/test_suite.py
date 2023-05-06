@@ -4,8 +4,8 @@ import unittest
 
 import HtmlTestRunner
 
-from pom.tests.test_forgot_password_page import TestForgotPasswordPage
-from pom.tests.test_login_page import TestLoginPage
+from p5_pom.tests.test_forgot_password_page import TestForgotPasswordPage
+from p5_pom.tests.test_login_page import TestLoginPage
 
 
 class TestSuite(unittest.TestCase):

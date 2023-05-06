@@ -1,5 +1,5 @@
 """
-Polimorfism = principiu OOP care permite implementarea mai multor functii cu acelasi nume dar comportament diferit
+Polimorfism = principiu p2_oop care permite implementarea mai multor functii cu acelasi nume dar comportament diferit
 exista mai multe modalitati de implementare a polimorfismului:
 a) polimorfism prin definirea unei functii sau metode cu parametri impliciti
 b) polimorfism prin definire unei functii sau metode cu *args

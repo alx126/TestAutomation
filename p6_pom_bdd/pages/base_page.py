@@ -3,7 +3,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
-from pom_bdd.browser import Browser
+from p6_pom_bdd.browser import Browser
 
 
 class BasePage(Browser):

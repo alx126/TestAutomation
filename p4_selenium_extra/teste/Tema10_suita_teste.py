@@ -2,7 +2,7 @@ import unittest
 
 import HtmlTestRunner
 
-from selenium_intro.Tema_s9 import Login
+from p3_selenium_intro.Tema_s9 import Login
 
 from test_01_alerts import TestAlerts
 from test_02_authentication import TestFirefoxAuthentication

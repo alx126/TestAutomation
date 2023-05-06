@@ -1,6 +1,6 @@
 """
 POO = Programare orientata pe obiecte
-OOP = Object Oriented Programming
+p2_oop = Object Oriented Programming
 
 Clasa = structura de tip tipar / blueprint / prototip / reteta care serveste drept ghid pentru un element care ar PUTEA exista
 
@@ -69,6 +69,7 @@ class Masina:
         #     self.culoare = 'portocaliu'
         # else:
         #     self.culoare = culoare
+        self.culoare = culoare
         self.model = model
         self.propulsia = propulsie
         self.consum = consum

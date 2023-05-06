@@ -1,7 +1,7 @@
 import unittest
-from pom.pages.forgot_password_page import ForgotPasswordPage
-from pom.pages.login_page import LoginPage
-from pom.utils.driverfactory import DriverFactory
+from p5_pom.pages.forgot_password_page import ForgotPasswordPage
+from p5_pom.pages.login_page import LoginPage
+from p5_pom.utils.driverfactory import DriverFactory
 
 
 class TestForgotPasswordPage(unittest.TestCase):
