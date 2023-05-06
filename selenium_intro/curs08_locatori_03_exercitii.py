@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import time
 
 from selenium import webdriver
@@ -8,7 +6,6 @@ from selenium.webdriver.common.by import By
 driver = webdriver.Chrome()
 
 driver.get("https://formy-project.herokuapp.com/datepicker")
-
 
 # Exercitiu 1: Definim o functie pentru deschiderea date picker-ului pe care o vom refolosi
 
@@ -87,6 +84,7 @@ def select_date(year, month, day):
         next_button.click()
 
     driver.find_element(By.XPATH, f"//td[@class='day' and contains(text(), {day})]").click()
+
 
 select_date("2023", "May", 15)
 
